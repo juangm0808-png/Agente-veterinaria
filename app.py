@@ -8,8 +8,8 @@ app = Flask(__name__)
 
 @app.route("/env-test")
 def env_test():
-    key = os.environ.get("GROQ_API_KEY")
-    return jsonify({"key_encontrada": key is not None, "primeros_chars": key[:10] if key else "VACIA"})
+    todas = dict(os.environ)
+    return jsonify(todas)
 
 API_KEY = os.environ.get("GROQ_API_KEY")
 print(f"API_KEY cargada: {API_KEY[:10] if API_KEY else 'NO ENCONTRADA'}")
