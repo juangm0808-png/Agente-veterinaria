@@ -7,6 +7,7 @@ from flask import Flask, request, jsonify, send_from_directory
 app = Flask(__name__)
 
 API_KEY = os.environ.get("GROQ_API_KEY")
+print(f"API_KEY cargada: {API_KEY[:10] if API_KEY else 'NO ENCONTRADA'}")
 url = "https://api.groq.com/openai/v1/chat/completions"
 
 conversaciones = {}
