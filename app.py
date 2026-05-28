@@ -2,7 +2,7 @@ import os
 import json
 import urllib.request
 import urllib.error
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 API_KEY = os.environ.get("GROQ_KEY")
@@ -27,12 +27,14 @@ def preguntar_ia(messages):
 
 @app.route("/")
 def index():
-    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), "index.html")
-
-@app.route("/")
-def index():
     with open("index.html", "r", encoding="utf-8") as f:
         return f.read()
+
+@app.route("/chat", methods=["POST"])
+def chat():
+    datos = request.json
+    session_id = datos.get("session_id", "default")
+    mensaje = datos.get("mensaje")
     
     if session_id not in conversaciones:
         conversaciones[session_id] = [
